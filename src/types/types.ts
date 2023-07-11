@@ -14,8 +14,19 @@ export interface INewCabin {
   description: string;
   discount: number;
   id?: number;
-  image: File;
+  image: File | string;
   maxCapacity: number;
   name: string;
   regularPrice: number;
+}
+
+export interface IDefaultCabinValues {
+  created_at?: string | undefined;
+  description: string | undefined;
+  discount: string | undefined;
+  id?: string;
+  image: FileList | undefined;
+  maxCapacity: string | undefined;
+  name: string | undefined;
+  regularPrice: string | undefined;
 }

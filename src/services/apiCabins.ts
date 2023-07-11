@@ -12,18 +12,26 @@ export async function getCabins() {
   return cabins;
 }
 
-export async function createCabin(newCabin: INewCabin) {
+export async function createEditCabin(newCabin: INewCabin, id?: number) {
   // 1. Create img name and path
-  const imageName = `${Math.random()}-${newCabin.image.name}`.replaceAll(
-    '/',
-    ''
-  );
-  const imagePath = `${supabaseUrl}/storage/v1/object/public/cabin-images/${imageName}`;
+  const imageName =
+    typeof newCabin.image !== 'string'
+      ? `${Math.random()}-${newCabin.image.name}`.replaceAll('/', '')
+      : '';
+  const imagePath =
+    typeof newCabin.image !== 'string'
+      ? `${supabaseUrl}/storage/v1/object/public/cabin-images/${imageName}`
+      : newCabin.image;
+
   // 2. Create cabin
-  const { data: createdCabin, error } = await supabase
-    .from('cabins')
-    .insert([{ ...newCabin, image: imagePath }])
-    .select();
+  const query = id
+    ? supabase.from('cabins').insert([{ ...newCabin, image: imagePath }])
+    : supabase
+        .from('cabins')
+        .update({ ...newCabin, image: imagePath })
+        .eq('id', id);
+
+  const { data: createdCabin, error } = await query.select().single();
 
   if (error) {
     console.error(error);
@@ -31,16 +39,18 @@ export async function createCabin(newCabin: INewCabin) {
   }
 
   // 3. Upload image
-  const { error: storageError } = await supabase.storage
-    .from('cabin-images')
-    .upload(imageName, newCabin.image);
+  if (typeof newCabin.image !== 'string') {
+    const { error: storageError } = await supabase.storage
+      .from('cabin-images')
+      .upload(imageName, newCabin.image);
 
-  if (storageError) {
-    await supabase.from('cabins').delete().eq('id', createdCabin[0].id);
-    console.error(storageError);
-    throw new Error(
-      'Cabins image could not be uploaded, cabin was not created'
-    );
+    if (storageError) {
+      await supabase.from('cabins').delete().eq('id', createdCabin.id);
+      console.error(storageError);
+      throw new Error(
+        'Cabins image could not be uploaded, cabin was not created'
+      );
+    }
   }
 
   return createdCabin;
