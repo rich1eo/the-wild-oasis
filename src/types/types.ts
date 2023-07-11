@@ -8,3 +8,14 @@ export interface ICabin {
   name: string | null;
   regularPrice: number | null;
 }
+
+export interface INewCabin {
+  created_at?: string;
+  description: string;
+  discount: number;
+  id?: number;
+  image: File;
+  maxCapacity: number;
+  name: string;
+  regularPrice: number;
+}

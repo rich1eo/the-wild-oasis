@@ -1,16 +1,17 @@
+import { styled } from 'styled-components';
 import { useForm } from 'react-hook-form';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { toast } from 'react-hot-toast';
+
+import { INewCabin } from '../../types/types';
+import { createCabin } from '../../services/apiCabins';
 
 import Input from '../../ui/Input';
 import Form from '../../ui/Form';
 import Button from '../../ui/Button';
 import FileInput from '../../ui/FileInput';
 import Textarea from '../../ui/Textarea';
-import { createCabin } from '../../services/apiCabins';
-import { toast } from 'react-hot-toast';
-import { ICabin } from '../../types/types';
 import FormRow from '../../ui/FormRow';
-import { styled } from 'styled-components';
 
 const FormFooter = styled.div`
   display: flex;
@@ -25,7 +26,7 @@ interface FormValues {
   regularPrice: string;
   discount: string;
   description: string;
-  image: string;
+  image: FileList;
 }
 
 function CreateCabinForm() {
@@ -52,11 +53,11 @@ function CreateCabinForm() {
   });
 
   function onSubmit(data: FormValues) {
-    const newCabin: ICabin = {
+    const newCabin: INewCabin = {
       name: data.name,
       description: data.description,
       discount: +data.discount,
-      image: data.image,
+      image: data.image[0],
       maxCapacity: +data.maxCapacity,
       regularPrice: +data.regularPrice,
     };
