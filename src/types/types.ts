@@ -37,11 +37,12 @@ export interface IDefaultCabinValues {
 ////////////////////////////////////////////////
 // Settings
 
-export interface ISettings {
-  breakfastPrice: number;
-  created_at?: string;
-  id?: number;
-  maxBookingGuestsPerBooking: number;
-  maxBookingLength: number;
-  minBookingLength: number;
-}
+export type IUpdateSetting = {
+  [key in SettingFieldType as string]: number;
+};
+
+export type SettingFieldType =
+  | 'breakfastPrice'
+  | 'maxBookingGuestsPerBooking'
+  | 'maxBookingLength'
+  | 'minBookingLength';
