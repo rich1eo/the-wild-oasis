@@ -10,7 +10,7 @@ const Textarea = styled.textarea`
   height: 8rem;
 
   &:disabled {
-    background-color: var(--color-grey-300);
+    background-color: var(--color-grey-200);
   }
 `;
 

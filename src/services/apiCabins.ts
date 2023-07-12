@@ -24,7 +24,7 @@ export async function createEditCabin(newCabin: INewCabin, id?: number) {
       : newCabin.image;
 
   // 2. Create cabin
-  const query = id
+  const query = !id
     ? supabase.from('cabins').insert([{ ...newCabin, image: imagePath }])
     : supabase
         .from('cabins')
