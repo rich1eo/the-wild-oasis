@@ -1,3 +1,6 @@
+////////////////////////////////////////////////
+// Cabins
+
 export interface ICabin {
   created_at?: string | null;
   description: string | null;
@@ -29,4 +32,16 @@ export interface IDefaultCabinValues {
   maxCapacity: string | undefined;
   name: string | undefined;
   regularPrice: string | undefined;
+}
+
+////////////////////////////////////////////////
+// Settings
+
+export interface ISettings {
+  breakfastPrice: number;
+  created_at?: string;
+  id?: number;
+  maxBookingGuestsPerBooking: number;
+  maxBookingLength: number;
+  minBookingLength: number;
 }

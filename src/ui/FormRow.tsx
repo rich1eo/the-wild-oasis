@@ -25,8 +25,8 @@ const InputError = styled.span`
 `;
 
 interface FormRowProps {
-  label: string;
-  error: string | undefined;
+  label?: string;
+  error?: string | undefined;
   children: ReactElement<HTMLInputElement>;
 }
 
