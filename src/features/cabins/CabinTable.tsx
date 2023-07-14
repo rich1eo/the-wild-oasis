@@ -5,6 +5,7 @@ import { useCabins } from './useCabins';
 import Spinner from '../../ui/Spinner';
 import CabinRow from './CabinRow';
 import Table from '../../ui/Table';
+import { ICabin } from '../../types/types';
 
 // const Table = styled.div`
 //   background-color: var(--color-grey-0);
@@ -47,9 +48,13 @@ export default function CabinTable() {
         <div>Discount</div>
         <div></div>
       </Table.Header>
-      {cabins?.map(cabin => (
+      <Table.Body
+        data={cabins!}
+        render={(cabin: ICabin) => <CabinRow key={cabin.id} cabin={cabin} />}
+      />
+      {/* {cabins?.map(cabin => (
         <CabinRow key={cabin.id} cabin={cabin} />
-      ))}
+      ))} */}
     </Table>
   );
 }

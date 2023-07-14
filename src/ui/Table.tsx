@@ -1,5 +1,6 @@
 import { ReactNode, createContext, useContext } from 'react';
 import styled from 'styled-components';
+import { ICabin } from '../types/types';
 
 const StyledTable = styled.div`
   border: 1px solid var(--color-grey-200);
@@ -89,8 +90,15 @@ function Row({ children }: { children: ReactNode }) {
   return <StyledRow columns={columns}>{children}</StyledRow>;
 }
 
-function Body({ children }: { children: ReactNode }) {
-  return <StyledBody>{children}</StyledBody>;
+function Body({
+  data,
+  render,
+}: {
+  data: ICabin[];
+  render(data: ICabin): JSX.Element;
+}) {
+  if (!data.length) return <Empty>No data to show at the moment</Empty>;
+  return <StyledBody>{data.map(render)}</StyledBody>;
 }
 
 Table.Header = Header;
