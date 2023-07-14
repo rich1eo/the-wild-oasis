@@ -28,10 +28,6 @@ interface FormValues {
   image: FileList | string;
 }
 
-interface CreateCabinFormProps {
-  cabinToEdit?: ICabin;
-}
-
 const defaultCabinToEdit: IDefaultCabinValues = {
   name: undefined,
   description: undefined,
@@ -50,8 +46,14 @@ const initialCabinToEdit: ICabin = {
   regularPrice: null,
 };
 
+interface CreateCabinFormProps {
+  cabinToEdit?: ICabin;
+  onCloseModal?(): void;
+}
+
 function CreateCabinForm({
   cabinToEdit = initialCabinToEdit,
+  onCloseModal,
 }: CreateCabinFormProps) {
   const { id: editId, ...editValues } = cabinToEdit;
   const isEditSession = Boolean(editId);
@@ -97,19 +99,27 @@ function CreateCabinForm({
       editCabin(
         { newCabinData: newCabin, id: editId },
         {
-          onSuccess: () => reset(),
+          onSuccess: () => {
+            reset();
+            onCloseModal?.();
+          },
         }
       );
     } else {
       createCabin(newCabin, {
-        onSuccess: () => reset(),
+        onSuccess: () => {
+          reset();
+          onCloseModal?.();
+        },
       });
     }
   }
 
   return (
-    // eslint-disable-next-line @typescript-eslint/no-misused-promises
-    <Form onSubmit={handleSubmit(onSubmit)}>
+    <Form // eslint-disable-next-line @typescript-eslint/no-misused-promises
+      onSubmit={handleSubmit(onSubmit)}
+      type={onCloseModal ? 'modal' : 'regular'}
+    >
       <FormRow label="Cabin name" error={errors.name?.message}>
         <Input
           type="text"
@@ -192,8 +202,12 @@ function CreateCabinForm({
       </FormRow>
 
       <FormFooter>
-        <Button variation="secondary" type="reset">
-          Clear
+        <Button
+          variation="secondary"
+          type="reset"
+          onClick={() => onCloseModal?.()}
+        >
+          Cancel
         </Button>
         <Button disabled={isInWork}>
           {isEditSession ? 'Edit' : 'Create new'} cabin
