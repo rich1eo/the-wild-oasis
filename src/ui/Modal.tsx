@@ -1,3 +1,4 @@
+import styled from 'styled-components';
 import {
   ReactElement,
   ReactNode,
@@ -8,7 +9,6 @@ import {
 } from 'react';
 import { createPortal } from 'react-dom';
 import { HiXMark } from 'react-icons/hi2';
-import styled from 'styled-components';
 import { useOutsideClick } from '../hooks/useOutsideClick';
 
 const StyledModal = styled.div`
@@ -62,19 +62,11 @@ const Button = styled.button`
 
 interface ModalContextType {
   openName: string;
-  open(openName: string): void;
-  close(): void;
+  open: (openName: string) => void;
+  close: () => void;
 }
 
-const initialContext: ModalContextType = {
-  openName: '',
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  open: () => {},
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  close: () => {},
-};
-
-const ModalContext = createContext<ModalContextType>(initialContext);
+const ModalContext = createContext<ModalContextType | null>(null);
 
 function Modal({ children }: { children: ReactNode }) {
   const [openName, setOpenName] = useState('');
@@ -96,15 +88,13 @@ function Open({
   children: ReactElement;
   opens: string;
 }) {
-  // eslint-disable-next-line @typescript-eslint/unbound-method
-  const { open } = useContext(ModalContext);
+  const { open } = useContext(ModalContext) as ModalContextType;
   return cloneElement(children, { onClick: () => open(opensWindowName) });
 }
 
 function Window({ children, name }: { children: ReactElement; name: string }) {
-  // eslint-disable-next-line @typescript-eslint/unbound-method
-  const { openName, close } = useContext(ModalContext);
-  const modalRef = useOutsideClick(close);
+  const { openName, close } = useContext(ModalContext) as ModalContextType;
+  const modalRef = useOutsideClick(close) as React.RefObject<HTMLDivElement>;
 
   if (name !== openName) return null;
 
