@@ -1,7 +1,9 @@
 import { ChangeEvent } from 'react';
-import { IOption } from '../types/types';
-import Select from './Select';
 import { useSearchParams } from 'react-router-dom';
+
+import { IOption } from '../types/types';
+
+import Select from './Select';
 
 interface SortByProps {
   options: IOption[];
@@ -17,9 +19,9 @@ export default function SortBy({ options }: SortByProps) {
 
   return (
     <Select
+      value={searchParams.get('sortBy') || ''}
       options={options}
       type="white"
-      value={searchParams.get('sortBy') || ''}
       onChange={handleChange}
     />
   );

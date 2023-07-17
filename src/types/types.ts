@@ -102,3 +102,17 @@ export interface IOption {
 }
 
 export type CabinSortFieldType = keyof ICabin;
+
+////////////////////////////////////////////////
+// Sort/Filter Bookings
+
+export interface IFilterBookings {
+  field: string;
+  value: string;
+  method?: string;
+}
+
+export interface ISortBookings {
+  field: string;
+  direction: string;
+}

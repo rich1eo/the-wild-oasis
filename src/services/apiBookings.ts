@@ -1,11 +1,32 @@
-import { IUpdateBookings } from '../types/types';
-import { getToday } from '../utils/helpers';
 import supabase from './supabase';
 
-export async function getBookings() {
-  const { data, error } = await supabase
+import { getToday } from '../utils/helpers';
+import {
+  IFilterBookings,
+  ISortBookings,
+  IUpdateBookings,
+} from '../types/types';
+
+export async function getBookings({
+  filter,
+  sortBy,
+}: {
+  filter: IFilterBookings | null;
+  sortBy: ISortBookings;
+}) {
+  let query = supabase
     .from('bookings')
     .select('*, cabins(name), guests(fullName, email)');
+
+  // 1. Filter
+  if (filter !== null) query = query.eq(filter.field, filter.value);
+
+  // 2. Sort
+  query = query.order(sortBy.field, {
+    ascending: sortBy.direction === 'asc',
+  });
+
+  const { data, error } = await query;
 
   if (error) {
     console.error(error);

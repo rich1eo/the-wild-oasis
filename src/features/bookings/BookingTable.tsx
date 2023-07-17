@@ -1,5 +1,6 @@
 import { toast } from 'react-hot-toast';
 
+import { IBooking } from '../../types/types';
 import { useBookings } from './useBookings';
 
 import Table from '../../ui/Table';
@@ -7,7 +8,6 @@ import Menus from '../../ui/Menus';
 import Empty from '../../ui/Empty';
 import Spinner from '../../ui/Spinner';
 import BookingRow from './BookingRow';
-import { IBooking } from '../../types/types';
 
 function BookingTable() {
   const { bookings, error, isLoading } = useBookings();
