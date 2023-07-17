@@ -48,6 +48,52 @@ export type SettingFieldType =
   | 'minBookingLength';
 
 ////////////////////////////////////////////////
+// Bookings
+
+export interface IBooking {
+  cabinId: number | null;
+  cabinPrice: number | null;
+  created_at: string | null;
+  endDate: string | null;
+  extrasPrice: number | null;
+  guestId: number | null;
+  hasBreakfast: boolean | null;
+  id: number;
+  isPaid: boolean | null;
+  numGuests: number | null;
+  numNights: number | null;
+  observations: string | null;
+  startDate: string | null;
+  status: string | null;
+  totalPrice: number | null;
+  cabins: {
+    name: string;
+  };
+  guests: {
+    fullName: string;
+    email: string;
+  };
+}
+
+export interface IUpdateBookings {
+  cabinId?: number | null;
+  cabinPrice?: number | null;
+  created_at?: string | null;
+  endDate?: string | null;
+  extrasPrice?: number | null;
+  guestId?: number | null;
+  hasBreakfast?: boolean | null;
+  id?: number;
+  isPaid?: boolean | null;
+  numGuests?: number | null;
+  numNights?: number | null;
+  observations?: string | null;
+  startDate?: string | null;
+  status?: string | null;
+  totalPrice?: number | null;
+}
+
+////////////////////////////////////////////////
 // Sort/Filter Options
 
 export interface IOption {

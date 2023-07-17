@@ -1,9 +1,24 @@
-import BookingRow from "./BookingRow";
-import Table from "../../ui/Table";
-import Menus from "../../ui/Menus";
+import { toast } from 'react-hot-toast';
+
+import { useBookings } from './useBookings';
+
+import Table from '../../ui/Table';
+import Menus from '../../ui/Menus';
+import Empty from '../../ui/Empty';
+import Spinner from '../../ui/Spinner';
+import BookingRow from './BookingRow';
+import { IBooking } from '../../types/types';
 
 function BookingTable() {
-  const bookings = [];
+  const { bookings, error, isLoading } = useBookings();
+
+  if (isLoading) return <Spinner />;
+
+  if (error && error instanceof Error) {
+    toast.error(error.message);
+  }
+
+  if (!bookings || !bookings.length) return <Empty resourceName="bookings" />;
 
   return (
     <Menus>
@@ -19,8 +34,8 @@ function BookingTable() {
 
         <Table.Body
           data={bookings}
-          render={(booking) => (
-            <BookingRow key={booking.id} booking={booking} />
+          render={booking => (
+            <BookingRow key={booking.id} booking={booking as IBooking} />
           )}
         />
       </Table>

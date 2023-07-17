@@ -8,6 +8,7 @@ import Table from '../../ui/Table';
 import Spinner from '../../ui/Spinner';
 import CabinRow from './CabinRow';
 import Menus from '../../ui/Menus';
+import Empty from '../../ui/Empty';
 
 export default function CabinTable() {
   const { cabins, error, isLoading } = useCabins();
@@ -19,8 +20,9 @@ export default function CabinTable() {
     toast.error(error.message);
   }
 
-  // 1. Filter
+  if (!cabins?.length) return <Empty resourceName="cabins" />;
 
+  // 1. Filter
   const filterValue = searchParams.get('discount') || 'all';
   let filteredCabins: ICabin[] = [];
 
@@ -44,7 +46,6 @@ export default function CabinTable() {
     CabinSortFieldType,
     'asc' | 'desc'
   ];
-  console.log(field, direction, cabins?.at(0)?.name);
   const modifier = direction === 'asc' ? 1 : -1;
   const sortedCabins = filteredCabins.sort(
     (a, b) => (Number(a[field]!) - Number(b[field]!)) * modifier
