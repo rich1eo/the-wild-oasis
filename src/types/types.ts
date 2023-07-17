@@ -46,3 +46,13 @@ export type SettingFieldType =
   | 'maxBookingGuestsPerBooking'
   | 'maxBookingLength'
   | 'minBookingLength';
+
+////////////////////////////////////////////////
+// Sort/Filter Options
+
+export interface IOption {
+  value: string;
+  label: string;
+}
+
+export type CabinSortFieldType = keyof ICabin;

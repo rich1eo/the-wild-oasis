@@ -45,7 +45,7 @@ interface CabinRowProps {
 
 export default function CabinRow({ cabin }: CabinRowProps) {
   const { isDeleting, deleteCabin } = useDeleteCabin();
-  const { isCreating, createCabin } = useCreateCabin();
+  const { createCabin } = useCreateCabin();
 
   function duplicateCabin() {
     createCabin({
@@ -75,10 +75,6 @@ export default function CabinRow({ cabin }: CabinRowProps) {
       )}
 
       <div>
-        {/* <button onClick={duplicateCabin} disabled={isCreating}>
-          <HiSquare2Stack />
-        </button> */}
-
         <Modal>
           <Menus.Menu>
             <Menus.Toggle id={String(cabin.id)} />

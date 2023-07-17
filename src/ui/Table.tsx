@@ -11,9 +11,9 @@ const StyledTable = styled.div`
   overflow: hidden;
 `;
 
-const CommonRow = styled.div<{ columns: string }>`
+const CommonRow = styled.div<{ $columns: string }>`
   display: grid;
-  grid-template-columns: ${props => props.columns};
+  grid-template-columns: ${props => props.$columns};
   column-gap: 2.4rem;
   align-items: center;
   transition: none;
@@ -79,7 +79,7 @@ function Table({ children, columns }: TableProps) {
 function Header({ children }: { children: ReactNode }) {
   const { columns } = useContext(TableContext);
   return (
-    <StyledHeader role="row" columns={columns} as="header">
+    <StyledHeader role="row" $columns={columns} as="header">
       {children}
     </StyledHeader>
   );
@@ -87,7 +87,7 @@ function Header({ children }: { children: ReactNode }) {
 
 function Row({ children }: { children: ReactNode }) {
   const { columns } = useContext(TableContext);
-  return <StyledRow columns={columns}>{children}</StyledRow>;
+  return <StyledRow $columns={columns}>{children}</StyledRow>;
 }
 
 function Body({
