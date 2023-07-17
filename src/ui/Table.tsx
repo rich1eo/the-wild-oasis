@@ -1,6 +1,5 @@
-import { ReactNode, createContext, useContext } from 'react';
 import styled from 'styled-components';
-import { ICabin } from '../types/types';
+import { ReactNode, createContext, useContext } from 'react';
 
 const StyledTable = styled.div`
   border: 1px solid var(--color-grey-200);
@@ -11,9 +10,9 @@ const StyledTable = styled.div`
   overflow: hidden;
 `;
 
-const CommonRow = styled.div<{ columns: string }>`
+const CommonRow = styled.div<{ $columns: string }>`
   display: grid;
-  grid-template-columns: ${props => props.columns};
+  grid-template-columns: ${props => props.$columns};
   column-gap: 2.4rem;
   align-items: center;
   transition: none;
@@ -79,7 +78,7 @@ function Table({ children, columns }: TableProps) {
 function Header({ children }: { children: ReactNode }) {
   const { columns } = useContext(TableContext);
   return (
-    <StyledHeader role="row" columns={columns} as="header">
+    <StyledHeader role="row" $columns={columns} as="header">
       {children}
     </StyledHeader>
   );
@@ -87,15 +86,15 @@ function Header({ children }: { children: ReactNode }) {
 
 function Row({ children }: { children: ReactNode }) {
   const { columns } = useContext(TableContext);
-  return <StyledRow columns={columns}>{children}</StyledRow>;
+  return <StyledRow $columns={columns}>{children}</StyledRow>;
 }
 
-function Body({
+function Body<T>({
   data,
   render,
 }: {
-  data: ICabin[];
-  render(data: ICabin): JSX.Element;
+  data: T[];
+  render(data: T): JSX.Element;
 }) {
   if (!data.length) return <Empty>No data to show at the moment</Empty>;
   return <StyledBody>{data.map(render)}</StyledBody>;

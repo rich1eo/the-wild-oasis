@@ -203,7 +203,7 @@ function CreateCabinForm({
 
       <FormFooter>
         <Button
-          variation="secondary"
+          $variation="secondary"
           type="reset"
           onClick={() => onCloseModal?.()}
         >
