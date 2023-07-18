@@ -6,17 +6,22 @@ import {
   ISortBookings,
   IUpdateBookings,
 } from '../types/types';
+import { PAGE_SIZE } from '../utils/constants';
 
 export async function getBookings({
   filter,
   sortBy,
+  page,
 }: {
   filter: IFilterBookings | null;
   sortBy: ISortBookings;
+  page: number;
 }) {
   let query = supabase
     .from('bookings')
-    .select('*, cabins(name), guests(fullName, email)');
+    .select('*, cabins(name), guests(fullName, email)', {
+      count: 'exact',
+    });
 
   // 1. Filter
   if (filter !== null) query = query.eq(filter.field, filter.value);
@@ -26,14 +31,19 @@ export async function getBookings({
     ascending: sortBy.direction === 'asc',
   });
 
-  const { data, error } = await query;
+  // 3. Pagination
+  const from = (page - 1) * PAGE_SIZE;
+  const to = from + PAGE_SIZE - 1;
+  query = query.range(from, to);
+
+  const { data, error, count } = await query;
 
   if (error) {
     console.error(error);
     throw new Error('Bookings could not be loaded');
   }
 
-  return data;
+  return { data, count };
 }
 
 export async function getBooking(id: number) {
