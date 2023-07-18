@@ -7,6 +7,9 @@ import Table from '../../ui/Table';
 import { formatCurrency } from '../../utils/helpers';
 import { formatDistanceFromNow } from '../../utils/helpers';
 import { IBooking } from '../../types/types';
+import Menus from '../../ui/Menus';
+import { HiEye } from 'react-icons/hi2';
+import { useNavigate } from 'react-router-dom';
 
 const Cabin = styled.div`
   font-size: 1.6rem;
@@ -37,22 +40,24 @@ const Amount = styled.div`
 
 function BookingRow({
   booking: {
-    // id: bookingId,
-    // created_at,
+    id: bookingId,
+    created_at,
     startDate,
     endDate,
     numNights,
-    // numGuests,
+    numGuests,
     totalPrice,
     status,
     guests: { fullName: guestName, email },
     cabins: { name: cabinName },
-    // cabinId,
-    // guestId,
+    cabinId,
+    guestId,
   },
 }: {
   booking: IBooking;
 }) {
+  const navigate = useNavigate();
+
   const statusToTagName = {
     unconfirmed: 'blue',
     'checked-in': 'green',
@@ -88,6 +93,18 @@ function BookingRow({
       )}
 
       <Amount>{formatCurrency(totalPrice as number)}</Amount>
+
+      <Menus.Menu>
+        <Menus.Toggle id={bookingId.toString()} />
+        <Menus.List id={bookingId.toString()}>
+          <Menus.Button
+            icon={<HiEye />}
+            onClick={() => navigate(`/bookings/${bookingId}`)}
+          >
+            See details
+          </Menus.Button>
+        </Menus.List>
+      </Menus.Menu>
     </Table.Row>
   );
 }
