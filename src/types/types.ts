@@ -80,9 +80,9 @@ export interface IUpdateBookings {
   cabinPrice?: number | null;
   created_at?: string | null;
   endDate?: string | null;
-  extrasPrice?: number | null;
   guestId?: number | null;
   hasBreakfast?: boolean | null;
+  extrasPrice?: number | null;
   id?: number;
   isPaid?: boolean | null;
   numGuests?: number | null;
