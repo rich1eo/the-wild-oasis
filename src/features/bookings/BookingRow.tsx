@@ -1,12 +1,15 @@
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 import { format, isToday } from 'date-fns';
+import { HiArrowDownOnSquare, HiEye } from 'react-icons/hi2';
 
 import Tag from '../../ui/Tag';
 import Table from '../../ui/Table';
+import Menus from '../../ui/Menus';
 
+import { IBooking } from '../../types/types';
 import { formatCurrency } from '../../utils/helpers';
 import { formatDistanceFromNow } from '../../utils/helpers';
-import { IBooking } from '../../types/types';
 
 const Cabin = styled.div`
   font-size: 1.6rem;
@@ -37,22 +40,20 @@ const Amount = styled.div`
 
 function BookingRow({
   booking: {
-    // id: bookingId,
-    // created_at,
+    id: bookingId,
     startDate,
     endDate,
     numNights,
-    // numGuests,
     totalPrice,
     status,
     guests: { fullName: guestName, email },
     cabins: { name: cabinName },
-    // cabinId,
-    // guestId,
   },
 }: {
   booking: IBooking;
 }) {
+  const navigate = useNavigate();
+
   const statusToTagName = {
     unconfirmed: 'blue',
     'checked-in': 'green',
@@ -88,6 +89,26 @@ function BookingRow({
       )}
 
       <Amount>{formatCurrency(totalPrice as number)}</Amount>
+
+      <Menus.Menu>
+        <Menus.Toggle id={bookingId.toString()} />
+        <Menus.List id={bookingId.toString()}>
+          <Menus.Button
+            icon={<HiEye />}
+            onClick={() => navigate(`/bookings/${bookingId}`)}
+          >
+            See details
+          </Menus.Button>
+          {status === 'unconfirmed' && (
+            <Menus.Button
+              icon={<HiArrowDownOnSquare />}
+              onClick={() => navigate(`/checkin/${bookingId}`)}
+            >
+              Check In
+            </Menus.Button>
+          )}
+        </Menus.List>
+      </Menus.Menu>
     </Table.Row>
   );
 }
