@@ -9,6 +9,9 @@ import Button from '../../ui/Button';
 import ButtonText from '../../ui/ButtonText';
 
 import { useMoveBack } from '../../hooks/useMoveBack';
+import { useBooking } from './useBooking';
+import Spinner from '../../ui/Spinner';
+import { IBookingDetails } from '../../types/types';
 
 const HeadingGroup = styled.div`
   display: flex;
@@ -17,10 +20,10 @@ const HeadingGroup = styled.div`
 `;
 
 function BookingDetail() {
-  const booking = {};
-  const status = 'checked-in';
-
+  const { booking, isLoading } = useBooking();
   const moveBack = useMoveBack();
+
+  if (isLoading) return <Spinner />;
 
   const statusToTagName = {
     unconfirmed: 'blue',
@@ -32,13 +35,19 @@ function BookingDetail() {
     <>
       <Row type="horizontal">
         <HeadingGroup>
-          <Heading as="h1">Booking #X</Heading>
-          <Tag type={statusToTagName[status]}>{status.replace('-', ' ')}</Tag>
+          <Heading as="h1">Booking #{booking?.id}</Heading>
+          <Tag
+            $type={
+              statusToTagName[booking!.status as keyof typeof statusToTagName]
+            }
+          >
+            {booking!.status!.replace('-', ' ')}
+          </Tag>
         </HeadingGroup>
         <ButtonText onClick={moveBack}>&larr; Back</ButtonText>
       </Row>
 
-      <BookingDataBox booking={booking} />
+      <BookingDataBox booking={booking as IBookingDetails} />
 
       <ButtonGroup>
         <Button $variation="secondary" onClick={moveBack}>
