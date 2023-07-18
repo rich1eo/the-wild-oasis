@@ -1,17 +1,18 @@
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 
-import BookingDataBox from './BookingDataBox';
 import Row from '../../ui/Row';
-import Heading from '../../ui/Heading';
 import Tag from '../../ui/Tag';
-import ButtonGroup from '../../ui/ButtonGroup';
 import Button from '../../ui/Button';
-import ButtonText from '../../ui/ButtonText';
-
-import { useMoveBack } from '../../hooks/useMoveBack';
-import { useBooking } from './useBooking';
 import Spinner from '../../ui/Spinner';
+import Heading from '../../ui/Heading';
+import ButtonText from '../../ui/ButtonText';
+import BookingDataBox from './BookingDataBox';
+import ButtonGroup from '../../ui/ButtonGroup';
+
+import { useBooking } from './useBooking';
 import { IBookingDetails } from '../../types/types';
+import { useMoveBack } from '../../hooks/useMoveBack';
 
 const HeadingGroup = styled.div`
   display: flex;
@@ -20,6 +21,7 @@ const HeadingGroup = styled.div`
 `;
 
 function BookingDetail() {
+  const navigate = useNavigate();
   const { booking, isLoading } = useBooking();
   const moveBack = useMoveBack();
 
@@ -50,6 +52,11 @@ function BookingDetail() {
       <BookingDataBox booking={booking as IBookingDetails} />
 
       <ButtonGroup>
+        {booking?.status === 'unconfirmed' && (
+          <Button onClick={() => navigate(`/checkin/${String(booking?.id)}`)}>
+            Check In
+          </Button>
+        )}
         <Button $variation="secondary" onClick={moveBack}>
           Back
         </Button>

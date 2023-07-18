@@ -147,7 +147,6 @@ function BookingDataBox({ booking }: { booking: IBookingDetails }) {
 
       <Section>
         <Guest>
-          {/* TODO: replace undefine with correct country name */}
           {countryFlag && (
             <Flag src={countryFlag} alt={`Flag of ${nationality!}`} />
           )}
