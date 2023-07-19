@@ -148,3 +148,9 @@ export interface ISortBookings {
   field: string;
   direction: string;
 }
+
+// Login
+export interface ILoginData {
+  email: string;
+  password: string;
+}

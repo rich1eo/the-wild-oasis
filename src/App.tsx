@@ -5,13 +5,13 @@ import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 
 import GlobalStyles from './styles/GlobalStyles';
 
+import AppLayout from './ui/AppLayout';
 import Users from './pages/Users';
 import Login from './pages/Login';
 import Cabins from './pages/Cabins';
 import Account from './pages/Account';
 import Booking from './pages/Booking';
 import Checkin from './pages/Checkin';
-import AppLayout from './ui/AppLayout';
 import Settings from './pages/Settings';
 import Bookings from './pages/Bookings';
 import Dashboard from './pages/Dashboard';
@@ -42,9 +42,10 @@ export default function App() {
             <Route path="users" element={<Users />} />
             <Route path="settings" element={<Settings />} />
             <Route path="account" element={<Account />} />
-            <Route path="login" element={<Login />} />
-            <Route path="*" element={<PageNotFound />} />
           </Route>
+
+          <Route path="login" element={<Login />} />
+          <Route path="*" element={<PageNotFound />} />
         </Routes>
       </BrowserRouter>
 
