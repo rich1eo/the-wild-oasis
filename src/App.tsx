@@ -6,6 +6,8 @@ import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import GlobalStyles from './styles/GlobalStyles';
 
 import AppLayout from './ui/AppLayout';
+import ProtectedRoute from './ui/ProtectedRoute';
+
 import Users from './pages/Users';
 import Login from './pages/Login';
 import Cabins from './pages/Cabins';
@@ -16,7 +18,6 @@ import Settings from './pages/Settings';
 import Bookings from './pages/Bookings';
 import Dashboard from './pages/Dashboard';
 import PageNotFound from './pages/PageNotFound';
-import ProtectedRoute from './ui/ProtectedRoute';
 
 const queryClient = new QueryClient({
   defaultOptions: {

@@ -120,7 +120,7 @@ function CreateCabinForm({
       onSubmit={handleSubmit(onSubmit)}
       type={onCloseModal ? 'modal' : 'regular'}
     >
-      <FormRow label="Cabin name" error={errors.name?.message}>
+      <FormRow label="Cabin name" error={errors.name?.message} htmlFor="name">
         <Input
           type="text"
           id="name"
@@ -131,7 +131,11 @@ function CreateCabinForm({
         />
       </FormRow>
 
-      <FormRow label="Maximum capacity" error={errors.maxCapacity?.message}>
+      <FormRow
+        label="Maximum capacity"
+        error={errors.maxCapacity?.message}
+        htmlFor="maxCapacity"
+      >
         <Input
           type="number"
           id="maxCapacity"
@@ -146,7 +150,11 @@ function CreateCabinForm({
         />
       </FormRow>
 
-      <FormRow label="Regular price" error={errors.regularPrice?.message}>
+      <FormRow
+        label="Regular price"
+        error={errors.regularPrice?.message}
+        htmlFor="regularPrice"
+      >
         <Input
           type="number"
           id="regularPrice"
@@ -161,7 +169,11 @@ function CreateCabinForm({
         />
       </FormRow>
 
-      <FormRow label="Discount" error={errors.discount?.message}>
+      <FormRow
+        label="Discount"
+        error={errors.discount?.message}
+        htmlFor="discount"
+      >
         <Input
           type="number"
           id="discount"
@@ -179,6 +191,7 @@ function CreateCabinForm({
       <FormRow
         label="Description for website"
         error={errors.description?.message}
+        htmlFor="description"
       >
         <Textarea
           id="description"
@@ -190,7 +203,11 @@ function CreateCabinForm({
         />
       </FormRow>
 
-      <FormRow label="Cabin photo" error={errors.image?.message}>
+      <FormRow
+        label="Cabin photo"
+        error={errors.image?.message}
+        htmlFor="image"
+      >
         <FileInput
           id="image"
           accept="image/*"

@@ -1,5 +1,5 @@
 import { styled } from 'styled-components';
-import { ReactElement } from 'react';
+import { ReactNode } from 'react';
 
 const StyledFormRow = styled.div`
   display: grid;
@@ -27,13 +27,19 @@ const InputError = styled.span`
 interface FormRowProps {
   label?: string;
   error?: string | undefined;
-  children: ReactElement<HTMLInputElement>;
+  children: ReactNode;
+  htmlFor?: string;
 }
 
-export default function FormRow({ children, error, label }: FormRowProps) {
+export default function FormRow({
+  children,
+  error,
+  label,
+  ...props
+}: FormRowProps) {
   return (
     <StyledFormRow>
-      {label && <Label htmlFor={children.props.id}>{label}</Label>}
+      {label && <Label {...props}>{label}</Label>}
       {children}
       {error && <InputError>{error}</InputError>}
     </StyledFormRow>
