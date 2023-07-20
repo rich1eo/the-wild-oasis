@@ -1,6 +1,23 @@
 import supabase from './supabase';
 
-import { ILoginData } from '../types/types';
+import { ILoginData, ISignup } from '../types/types';
+
+export async function signup({ fullName, email, password }: ISignup) {
+  const { data, error } = await supabase.auth.signUp({
+    email,
+    password,
+    options: {
+      data: {
+        fullName,
+        avatar: '',
+      },
+    },
+  });
+
+  if (error) throw new Error(error.message);
+
+  return data;
+}
 
 export async function login({ email, password }: ILoginData) {
   const { data, error } = await supabase.auth.signInWithPassword({
@@ -10,7 +27,6 @@ export async function login({ email, password }: ILoginData) {
 
   if (error) throw new Error(error.message);
 
-  console.log(data);
   return data;
 }
 
