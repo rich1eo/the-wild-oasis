@@ -113,6 +113,7 @@ export interface IBookingDetails {
   guests: IGuest;
 }
 
+////////////////////////////////////////////////
 // Guests
 
 export interface IGuest {
@@ -147,4 +148,21 @@ export interface IFilterBookings {
 export interface ISortBookings {
   field: string;
   direction: string;
+}
+
+////////////////////////////////////////////////
+// Login
+
+export interface ILoginData {
+  email: string;
+  password: string;
+}
+
+////////////////////////////////////////////////
+// Signup
+
+export interface ISignup {
+  fullName: string;
+  email: string;
+  password: string;
 }

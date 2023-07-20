@@ -1,5 +1,5 @@
 import { styled } from 'styled-components';
-import { ReactElement } from 'react';
+import { ReactNode } from 'react';
 
 const StyledFormRow = styled.div`
   display: grid;
@@ -8,10 +8,20 @@ const StyledFormRow = styled.div`
   gap: 2.4rem;
 
   padding: 1.2rem 0;
-  border-bottom: 1px solid var(--color-grey-100);
+
+  &:not(:last-child) {
+    border-bottom: 1px solid var(--color-grey-100);
+  }
 
   &:first-child {
     padding-top: 0;
+  }
+
+  &:has(button) {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1.2rem;
+    padding-bottom: 0;
   }
 `;
 
@@ -27,13 +37,19 @@ const InputError = styled.span`
 interface FormRowProps {
   label?: string;
   error?: string | undefined;
-  children: ReactElement<HTMLInputElement>;
+  children: ReactNode;
+  htmlFor?: string;
 }
 
-export default function FormRow({ children, error, label }: FormRowProps) {
+export default function FormRow({
+  children,
+  error,
+  label,
+  ...props
+}: FormRowProps) {
   return (
     <StyledFormRow>
-      {label && <Label htmlFor={children.props.id}>{label}</Label>}
+      {label && <Label {...props}>{label}</Label>}
       {children}
       {error && <InputError>{error}</InputError>}
     </StyledFormRow>
