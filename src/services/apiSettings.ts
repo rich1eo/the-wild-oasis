@@ -1,5 +1,6 @@
-import { IUpdateSetting } from '../types/types';
 import supabase from './supabase';
+
+import { IUpdateSetting } from '../types/types';
 
 export async function getSettings() {
   const { data, error } = await supabase.from('settings').select('*').single();
