@@ -1,7 +1,7 @@
 import supabase, { supabaseUrl } from './supabase';
+import { UserAttributes } from '@supabase/supabase-js';
 
 import { ILoginData, ISignup } from '../types/types';
-import { UserAttributes } from '@supabase/supabase-js';
 
 export async function signup({ fullName, email, password }: ISignup) {
   const { data, error } = await supabase.auth.signUp({
