@@ -12,11 +12,12 @@ import ButtonGroup from '../../ui/ButtonGroup';
 import Modal from '../../ui/Modal';
 import ConfirmDelete from '../../ui/ConfirmDelete';
 
-import { useBooking } from './useBooking';
 import { IBookingDetails } from '../../types/types';
+import { useBooking } from './useBooking';
 import { useMoveBack } from '../../hooks/useMoveBack';
 import { useCheckout } from '../check-in-out/useCheckout';
 import { useDeleteBooking } from './useDeleteBooking';
+import Empty from '../../ui/Empty';
 
 const HeadingGroup = styled.div`
   display: flex;
@@ -33,6 +34,7 @@ function BookingDetail() {
   const { deleteBooking, isDeletingBooking } = useDeleteBooking();
 
   if (isLoading) return <Spinner />;
+  if (!booking) return <Empty resourceName="booking" />;
 
   const statusToTagName = {
     unconfirmed: 'blue',
@@ -47,10 +49,10 @@ function BookingDetail() {
           <Heading as="h1">Booking #{booking?.id}</Heading>
           <Tag
             $type={
-              statusToTagName[booking!.status as keyof typeof statusToTagName]
+              statusToTagName[booking.status as keyof typeof statusToTagName]
             }
           >
-            {booking!.status!.replace('-', ' ')}
+            {booking.status!.replace('-', ' ')}
           </Tag>
         </HeadingGroup>
         <ButtonText onClick={moveBack}>&larr; Back</ButtonText>
@@ -79,7 +81,7 @@ function BookingDetail() {
               resourceName={`booking #${booking?.id || 'unknown'}`}
               disabled={isDeletingBooking}
               onConfirm={() => {
-                deleteBooking(booking?.id as number, {
+                deleteBooking(booking.id, {
                   onSettled: () => navigate(-1),
                 });
               }}

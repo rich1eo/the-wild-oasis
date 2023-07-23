@@ -31,27 +31,28 @@ function CheckinBooking() {
   const [addBreakfast, setAddBreackFast] = useState(false);
 
   const { booking, isLoading } = useBooking();
-  const {
-    id: bookingId,
-    guests,
-    totalPrice,
-    numNights,
-    numGuests,
-    hasBreakfast,
-  } = booking as IBookingDetails;
 
   const moveBack = useMoveBack();
-  const { isCheckingIn, checkin } = useCheckin(bookingId);
+  const { isCheckingIn, checkin } = useCheckin(booking?.id as number);
 
   const { settings, isLoading: isLoadingSettings } = useSettings();
   const optionalBreakfastPrice =
-    (settings?.breakfastPrice as number) * numNights! * numGuests!;
+    (settings?.breakfastPrice as number) *
+    (booking?.numNights as number) *
+    (booking?.numNights as number);
 
   useEffect(() => {
     setConfirmPaid(booking?.isPaid ?? false);
   }, [booking?.isPaid]);
 
   if (isLoading || isLoadingSettings) return <Spinner />;
+
+  const {
+    id: bookingId,
+    guests,
+    totalPrice,
+    hasBreakfast,
+  } = booking as IBookingDetails;
 
   function handleCheckin() {
     if (!confirmPaid) return;
