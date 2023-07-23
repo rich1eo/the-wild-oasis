@@ -113,6 +113,29 @@ export interface IBookingDetails {
   guests: IGuest;
 }
 
+export interface IBookingActivity {
+  cabinId: number | null;
+  cabinPrice: number | null;
+  created_at: string | null;
+  endDate: string | null;
+  extrasPrice: number | null;
+  guestId: number | null;
+  hasBreakfast: boolean | null;
+  id: number;
+  isPaid: boolean | null;
+  numGuests: number | null;
+  numNights: number | null;
+  observations: string | null;
+  startDate: string | null;
+  status: string | null;
+  totalPrice: number | null;
+  guests: {
+    fullName: string;
+    nationality: string;
+    countryFlag: string;
+  };
+}
+
 ////////////////////////////////////////////////
 // Guests
 
