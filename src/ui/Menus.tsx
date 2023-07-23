@@ -8,6 +8,7 @@ import {
   useContext,
   useState,
 } from 'react';
+
 import { useOutsideClick } from '../hooks/useOutsideClick';
 
 type PositionType = {
@@ -111,6 +112,8 @@ function Toggle({ id }: { id: string }) {
   ) as MenusContextType;
 
   function handleClick(event: MouseEvent<HTMLButtonElement>) {
+    event.stopPropagation();
+
     const rect = (event.target as HTMLElement)
       .closest('button')
       ?.getBoundingClientRect();
@@ -135,7 +138,10 @@ function List({ id, children }: { id: string; children: ReactNode }) {
   const { openId, position, close } = useContext(
     MenusContext
   ) as MenusContextType;
-  const ref = useOutsideClick(close) as React.RefObject<HTMLUListElement>;
+  const ref = useOutsideClick(
+    close,
+    false
+  ) as React.RefObject<HTMLUListElement>;
 
   if (id !== openId) return null;
 
