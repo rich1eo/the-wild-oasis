@@ -177,7 +177,7 @@ export default function DurationChart({ confirmedStays }: DurationChartProps) {
             ))}
           </Pie>
           <Legend
-            width="30%"
+            width={160}
             verticalAlign="middle"
             align="right"
             layout="vertical"
