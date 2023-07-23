@@ -14,8 +14,7 @@ export function useCheckout(bookingId: number) {
 
     onSuccess(data) {
       toast.success(`Booking #${data.id} successfully checked out`);
-      // TODO: it's workings, but TS can find property
-      void queryClient.invalidateQueries({ active: true });
+      void queryClient.invalidateQueries();
     },
 
     onError() {
