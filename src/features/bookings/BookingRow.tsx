@@ -130,7 +130,6 @@ function BookingRow({
               </Menus.Button>
             )}
 
-            {/* TODO: Delete */}
             <Modal.Open opens="delete-booking">
               <Menus.Button icon={<HiTrash />}>Delete</Menus.Button>
             </Modal.Open>

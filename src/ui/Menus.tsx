@@ -6,6 +6,7 @@ import {
   ReactNode,
   createContext,
   useContext,
+  useEffect,
   useState,
 } from 'react';
 
@@ -41,9 +42,7 @@ const StyledToggle = styled.button`
   }
 `;
 
-const StyledList = styled.ul<{
-  $position: PositionType;
-}>`
+const StyledList = styled.ul<{ $position: PositionType }>`
   position: fixed;
 
   background-color: var(--color-grey-0);
@@ -142,6 +141,21 @@ function List({ id, children }: { id: string; children: ReactNode }) {
     close,
     false
   ) as React.RefObject<HTMLUListElement>;
+
+  useEffect(() => {
+    if (id !== openId) return;
+
+    const mainEl = document.getElementById('main')!;
+    const onScroll = () => {
+      close();
+    };
+
+    mainEl.addEventListener('scroll', onScroll);
+
+    return () => {
+      mainEl.removeEventListener('scroll', onScroll);
+    };
+  }, [openId, id, close]);
 
   if (id !== openId) return null;
 

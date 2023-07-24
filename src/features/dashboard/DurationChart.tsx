@@ -1,6 +1,4 @@
 import styled from 'styled-components';
-import { IBookingDashboard } from '../../types/types';
-import Heading from '../../ui/Heading';
 import {
   Cell,
   Legend,
@@ -9,6 +7,10 @@ import {
   ResponsiveContainer,
   Tooltip,
 } from 'recharts';
+
+import Heading from '../../ui/Heading';
+
+import { IBookingDashboard } from '../../types/types';
 import { useDarkMode } from '../../context/DarkModeContext';
 
 const ChartBox = styled.div`

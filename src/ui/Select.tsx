@@ -1,6 +1,7 @@
 import styled from 'styled-components';
-import { IOption } from '../types/types';
 import { ChangeEvent } from 'react';
+
+import { IOption } from '../types/types';
 
 const StyledSelect = styled.select<{ $type: string }>`
   font-size: 1.4rem;

@@ -57,7 +57,6 @@ export async function updateCurrentUser({
   fullName?: string;
   avatar?: File | null;
 }) {
-  console.log(password, fullName, avatar);
   // 1. Update Password or FullName
   let updateData;
 
