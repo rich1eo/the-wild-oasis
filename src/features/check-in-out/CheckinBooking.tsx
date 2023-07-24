@@ -42,6 +42,14 @@ function CheckinBooking() {
     (booking?.numNights as number);
 
   useEffect(() => {
+    document.title = `Check in | ${document.title}`;
+
+    return () => {
+      document.title = 'The Wild Oasis';
+    };
+  }, []);
+
+  useEffect(() => {
     setConfirmPaid(booking?.isPaid ?? false);
   }, [booking?.isPaid]);
 

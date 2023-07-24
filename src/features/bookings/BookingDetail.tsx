@@ -1,15 +1,17 @@
+import { useEffect } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 
 import Row from '../../ui/Row';
 import Tag from '../../ui/Tag';
+import Empty from '../../ui/Empty';
+import Modal from '../../ui/Modal';
 import Button from '../../ui/Button';
 import Spinner from '../../ui/Spinner';
 import Heading from '../../ui/Heading';
 import ButtonText from '../../ui/ButtonText';
 import BookingDataBox from './BookingDataBox';
 import ButtonGroup from '../../ui/ButtonGroup';
-import Modal from '../../ui/Modal';
 import ConfirmDelete from '../../ui/ConfirmDelete';
 
 import { IBookingDetails } from '../../types/types';
@@ -17,7 +19,6 @@ import { useBooking } from './useBooking';
 import { useMoveBack } from '../../hooks/useMoveBack';
 import { useCheckout } from '../check-in-out/useCheckout';
 import { useDeleteBooking } from './useDeleteBooking';
-import Empty from '../../ui/Empty';
 
 const HeadingGroup = styled.div`
   display: flex;
@@ -32,6 +33,18 @@ function BookingDetail() {
   const { booking, isLoading } = useBooking();
   const { isCheckingOut, checkout } = useCheckout(booking?.id as number);
   const { deleteBooking, isDeletingBooking } = useDeleteBooking();
+
+  const bookingId = booking?.id;
+
+  useEffect(() => {
+    document.title = `${bookingId ? `Booking #${bookingId}` : 'Loading...'} | ${
+      document.title
+    }`;
+
+    return () => {
+      document.title = 'The Wild Oasis';
+    };
+  }, [bookingId]);
 
   if (isLoading) return <Spinner />;
   if (!booking) return <Empty resourceName="booking" />;

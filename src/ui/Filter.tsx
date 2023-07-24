@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components';
 import { useSearchParams } from 'react-router-dom';
+
 import { IOption } from '../types/types';
 
 const StyledFilter = styled.div`

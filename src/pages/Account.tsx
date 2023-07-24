@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+
 import Row from '../ui/Row';
 import Heading from '../ui/Heading';
 
@@ -5,6 +7,14 @@ import UpdatePasswordForm from '../features/authentication/UpdatePasswordForm';
 import UpdateUserDataForm from '../features/authentication/UpdateUserDataForm';
 
 function Account() {
+  useEffect(() => {
+    document.title = `Account | ${document.title}`;
+
+    return () => {
+      document.title = 'The Wild Oasis';
+    };
+  }, []);
+
   return (
     <>
       <Heading as="h1">Update your account</Heading>

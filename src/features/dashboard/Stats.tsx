@@ -4,8 +4,10 @@ import {
   HiOutlineCalendarDays,
   HiOutlineChartBar,
 } from 'react-icons/hi2';
-import { IBookingDashboard } from '../../types/types';
+
 import Stat from './Stat';
+
+import { IBookingDashboard } from '../../types/types';
 import { formatCurrency } from '../../utils/helpers';
 
 interface StatsProps {
