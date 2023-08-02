@@ -6,7 +6,7 @@ Internal application used inside the hotel to manage booking, cabins and guests.
 
 ## Requirements
 
-<details>
+<details open>
 <summary>Authentication</summary>
 
 - Users of the app are hotel employees. They need to be logged into the application to perform tasks
@@ -102,7 +102,12 @@ This project is build with:
 React third-party packeges:
 
 - [React Router](https://reactrouter.com/en/main)
-- [React Redux](https://react-redux.js.org/)
+- [React Query](https://tanstack.com/query/latest)
+- [React Hook Form](https://www.react-hook-form.com)
+- [React Icons](https://react-icons.github.io/react-icons)
+- [React Hot Toasts](https://react-hot-toast.com)
+- [Recharts](https://recharts.org)
+- [DateFns](https://date-fns.org)
 
 ## Available Scripts
 
